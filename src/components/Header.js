@@ -29,12 +29,18 @@ const useStyles = makeStyles((theme) => ({
 const Header = (props) => {
   const classes = useStyles();
   const [branch, setBranch] = useState("");
+  const [service, setService] = useState("");
 
   useEffect(() => {
     props.filterByBranchHandler(branch);
-  }, [branch]);
-  const handleChange = (e) => {
+    props.filterByServiceHandler(service);
+  }, [branch,service]);
+
+  const handleBranchChange = (e) => {
     setBranch(e.target.value);
+  };
+  const handleServiceChange = (e) => {
+    setService(e.target.value);
   };
   return (
     <div>
@@ -44,7 +50,7 @@ const Header = (props) => {
             <InputLabel shrink htmlFor="age-native-label-placeholder">
               Filter By branch
             </InputLabel>
-            <Select native value={branch} onChange={(e) => handleChange(e)}>
+            <Select native value={branch} onChange={(e) => handleBranchChange(e)}>
               <option value="">All</option>
               <option value="Colombo">Colombo</option>
               <option value="Kandy">Kandy</option>
@@ -56,11 +62,11 @@ const Header = (props) => {
             <InputLabel shrink htmlFor="age-native-label-placeholder">
               Filter By Service
             </InputLabel>
-            <NativeSelect>
+            <Select native value={service} onChange={(e) => handleServiceChange(e)}>
               <option value="">All</option>
-              <option value={10}>Dry Cleaning</option>
-              <option value={20}>Wash Only</option>
-            </NativeSelect>
+              <option value="Dry Cleaning">Dry Cleaning</option>
+              <option value="Wash Only">Wash Only</option>
+            </Select>
           </FormControl>
         </Grid>
       </Grid>
