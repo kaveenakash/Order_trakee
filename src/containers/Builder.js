@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import OrderTable from "../components/OrderTable";
+import Header from '../components/Header'
 import axios from "axios";
 const Builder = (props) => {
   const [orders, setOrders] = useState([]);
@@ -12,11 +13,17 @@ const Builder = (props) => {
       });
   }, []);
 
-  if (orders) {
-    console.log(orders);
+  const filterByBranchHandler = () =>{
+    
   }
 
-  return <OrderTable orders={orders} />;
+  return (
+      <div>
+
+          <Header/>
+        <OrderTable orders={orders} />
+      </div>
+  );
 };
 
 export default Builder;
