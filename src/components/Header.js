@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { Typography } from "@material-ui/core";
@@ -27,36 +27,43 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const Header = (props) => {
-    const classes = useStyles();
+  const classes = useStyles();
+  const [branch, setBranch] = useState("");
+
+  useEffect(() => {
+    props.filterByBranchHandler(branch);
+  }, [branch]);
+  const handleChange = (e) => {
+    setBranch(e.target.value);
+  };
   return (
     <div>
-        <Grid item direction="row" container >
-          <Grid item xs="2">
-            <FormControl className={classes.formControl}>
-              <InputLabel shrink htmlFor="age-native-label-placeholder">
-               Filter By branch
-              </InputLabel>
-              <NativeSelect>
-                <option value="">All</option>
-                <option value={10}>Colombo</option>
-                <option value={20}>Kandy</option>
-              </NativeSelect>
-            </FormControl>
-          </Grid>
-          <Grid item xs="2">
+      <Grid item direction="row" container>
+        <Grid item xs="2">
           <FormControl className={classes.formControl}>
-              <InputLabel shrink htmlFor="age-native-label-placeholder">
-               Filter By Service
-              </InputLabel>
-              <NativeSelect>
-                <option value="">All</option>
-                <option value={10}>Dry Cleaning</option>
-                <option value={20}>Wash Only</option>
-              </NativeSelect>
-            </FormControl>
-          </Grid>
+            <InputLabel shrink htmlFor="age-native-label-placeholder">
+              Filter By branch
+            </InputLabel>
+            <Select native value={branch} onChange={(e) => handleChange(e)}>
+              <option value="">All</option>
+              <option value="Colombo">Colombo</option>
+              <option value="Kandy">Kandy</option>
+            </Select>
+          </FormControl>
         </Grid>
-    
+        <Grid item xs="2">
+          <FormControl className={classes.formControl}>
+            <InputLabel shrink htmlFor="age-native-label-placeholder">
+              Filter By Service
+            </InputLabel>
+            <NativeSelect>
+              <option value="">All</option>
+              <option value={10}>Dry Cleaning</option>
+              <option value={20}>Wash Only</option>
+            </NativeSelect>
+          </FormControl>
+        </Grid>
+      </Grid>
     </div>
   );
 };
